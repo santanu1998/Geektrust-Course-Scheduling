@@ -1,12 +1,12 @@
 package com.santanu.coursescheduling.enums;
 
-public enum CourseCommand {
+public enum CommandOperator {
     ADD_COURSE_OFFERING(5),
     CANCEL(1),
     REGISTER(2),
     ALLOT(1);
 
-    CourseCommand(Integer numArgs){
+    CommandOperator(Integer numArgs){
         this.numberOfArguments = numArgs;
     }
 
@@ -16,3 +16,4 @@ public enum CourseCommand {
         return numberOfArguments;
     }
 }
+

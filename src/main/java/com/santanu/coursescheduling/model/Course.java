@@ -2,37 +2,37 @@ package com.santanu.coursescheduling.model;
 
 import java.util.*;
 
-public class Course implements Comparable<Course> {
-    private final String id;
-    private final String name;
+public class Course implements Comparable<Course>{
+    private final String courseID;
+    private final String courseName;
     private final String instructor;
     private final Date date;
-    private final int minimumCapacity;
-    private final int maximumCapacity;
+    private final int minCapacity;
+    private final int maxCapacity;
     private boolean isAllotted;
     private boolean isCancelled;
 
     private final Map<String , Employee> registeredEmployees;
 
 
-    public Course(String id, String name, String instructor, Date date, int minimumCapacity, int maximumCapacity, boolean isAllotted, boolean isCancelled) {
-        this.id = id;
-        this.name = name;
+    public Course(String courseID, String courseName, String instructor, Date date, int minCapacity, int maxCapacity, boolean isAllotted, boolean isCancelled) {
+        this.courseID = courseID;
+        this.courseName = courseName;
         this.instructor = instructor;
         this.date = date;
-        this.minimumCapacity = minimumCapacity;
-        this.maximumCapacity = maximumCapacity;
+        this.minCapacity = minCapacity;
+        this.maxCapacity = maxCapacity;
         this.isAllotted = isAllotted;
         this.isCancelled = isCancelled;
         registeredEmployees = new TreeMap<>();
     }
 
-    public String getId() {
-        return id;
+    public String getCourseID() {
+        return courseID;
     }
 
-    public String getName() {
-        return name;
+    public String getCourseName() {
+        return courseName;
     }
 
     public String getInstructor() {
@@ -43,12 +43,12 @@ public class Course implements Comparable<Course> {
         return date;
     }
 
-    public int getMinimumCapacity() {
-        return minimumCapacity;
+    public int getMinCapacity() {
+        return minCapacity;
     }
 
-    public int getMaximumCapacity() {
-        return maximumCapacity;
+    public int getMaxCapacity() {
+        return maxCapacity;
     }
 
     public boolean isAllotted() {
@@ -59,26 +59,26 @@ public class Course implements Comparable<Course> {
         return isCancelled;
     }
 
-    public void setAllotted(boolean isAllotted) {
-        this.isAllotted = isAllotted;
+    public void setAllotted(boolean allotted) {
+        isAllotted = allotted;
     }
 
-    public void setCancelled(boolean isCancelled) {
-        this.isCancelled = isCancelled;
+    public void setCancelled(boolean cancelled) {
+        isCancelled = cancelled;
     }
 
     public Map<String, Employee> getRegisteredEmployees() {
         return registeredEmployees;
     }
 
-    public String addEmployee(Employee employee){
-        String registrationID = "REG-COURSE-" + employee.getName() + "-" + this.name;
-        this.registeredEmployees.put(registrationID , employee);
+    public String addEmployee(Employee e){
+        String registrationID = "REG-COURSE-"+e.getName()+"-"+this.courseName;
+        this.registeredEmployees.put(registrationID , e);
         return registrationID;
     }
 
     @Override
     public int compareTo(Course o) {
-        return this.name.compareTo(o.name);
+        return this.courseName.compareTo(o.courseName);
     }
 }

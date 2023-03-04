@@ -1,14 +1,13 @@
 package com.santanu.coursescheduling.service;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import com.santanu.coursescheduling.constants.CourseConstants;
-import com.santanu.coursescheduling.enums.CourseCommand;
+import com.santanu.coursescheduling.constants.Constants;
+import com.santanu.coursescheduling.enums.CommandOperator;
 import com.santanu.coursescheduling.exception.InvalidInputException;
 import com.santanu.coursescheduling.model.Command;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 public class CommandService {
     static CommandService commandService = null;
 
@@ -22,7 +21,7 @@ public class CommandService {
     public Command getCommandFromString(String input) throws InvalidInputException {
         try {
             String[] commandWithArguments = input.split(" ");
-            CourseCommand operator = CourseCommand.valueOf(CourseConstants.getFormattedValue(commandWithArguments[0]));
+            CommandOperator operator = CommandOperator.valueOf(Constants.getValue(commandWithArguments[0]));
             List<String> commandParams =
                     Arrays.stream(commandWithArguments).skip(1).collect(Collectors.toList());
             Command command = new Command(operator, commandParams);
@@ -33,8 +32,8 @@ public class CommandService {
         }
     }
 
-    private void validateInputCommand(CourseCommand inputCommand , Command command) throws InvalidInputException {
-        if(inputCommand.getNumberOfArguments()!=command.getParams().size()){
+    private void validateInputCommand(CommandOperator inputCommand , Command command) throws InvalidInputException {
+        if(inputCommand.getNumberOfArguments()!=command.getCommandParams().size()){
             throw new InvalidInputException("INPUT_DATA_ERROR");
         }
     }

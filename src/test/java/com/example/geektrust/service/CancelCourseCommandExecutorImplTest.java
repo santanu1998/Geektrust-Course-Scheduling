@@ -1,15 +1,14 @@
 package com.example.geektrust.service;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import com.santanu.coursescheduling.concrete.CommandExecutionFactory;
 import com.santanu.coursescheduling.exception.CourseFullException;
 import com.santanu.coursescheduling.exception.InvalidInputException;
 import com.santanu.coursescheduling.model.Command;
 import com.santanu.coursescheduling.model.Course;
+import com.santanu.coursescheduling.concrete.CommandExecutionFactory;
+import com.santanu.coursescheduling.service.CommandExecutor;
 import com.santanu.coursescheduling.service.CommandService;
-import com.santanu.coursescheduling.service.CourseCommandExecutor;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -24,9 +23,9 @@ public class CancelCourseCommandExecutorImplTest {
     Command command1;
     Command command2;
     Command command3;
-    CourseCommandExecutor executor1;
-    CourseCommandExecutor executor2;
-    CourseCommandExecutor executor3;
+    CommandExecutor executor1;
+    CommandExecutor executor2;
+    CommandExecutor executor3;
 
     private TreeMap<String , Course> courses;
     private Map<String,Course> registrationIdCourseMap;
@@ -43,14 +42,14 @@ public class CancelCourseCommandExecutorImplTest {
         executor3 = CommandExecutionFactory.getExecutor(command3);
         courses = new TreeMap<>();
         registrationIdCourseMap = new HashMap<>();
-        executor1.executeCourseCommand(courses , registrationIdCourseMap , command1);
-        executor2.executeCourseCommand(courses,registrationIdCourseMap , command2);
+        executor1.executeCommand(courses , registrationIdCourseMap , command1);
+        executor2.executeCommand(courses,registrationIdCourseMap , command2);
 
     }
 
     @Test
     public void testExecute() {
-        assertDoesNotThrow(()->executor3.executeCourseCommand(courses , registrationIdCourseMap , command3));
+        assertDoesNotThrow(()->executor3.executeCommand(courses , registrationIdCourseMap , command3));
     }
 
 

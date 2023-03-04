@@ -1,9 +1,8 @@
 package com.example.geektrust.enums;
 
+import com.santanu.coursescheduling.enums.CommandOperator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import com.santanu.coursescheduling.enums.CourseCommand;
 
 import java.util.Optional;
 
@@ -21,7 +20,7 @@ public class CommandOperatorTest {
     }
     @Test
     public void testGetNumberOfArguments() {
-        assertEquals(Optional.of(CourseCommand.REGISTER.getNumberOfArguments()).get(),registerValue);
-        assertEquals(Optional.of(CourseCommand.ADD_COURSE_OFFERING.getNumberOfArguments()).get(),courseOfferingValue);
+        assertEquals(Optional.of(CommandOperator.REGISTER.getNumberOfArguments()).get(),registerValue);
+        assertEquals(Optional.of(CommandOperator.ADD_COURSE_OFFERING.getNumberOfArguments()).get(),courseOfferingValue);
     }
 }

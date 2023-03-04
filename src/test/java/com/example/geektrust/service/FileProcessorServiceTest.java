@@ -1,12 +1,11 @@
 package com.example.geektrust.service;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import com.santanu.coursescheduling.exception.InvalidInputException;
 import com.santanu.coursescheduling.model.Command;
 import com.santanu.coursescheduling.service.FileProcesserService;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

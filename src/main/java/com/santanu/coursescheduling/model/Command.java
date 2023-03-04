@@ -1,23 +1,24 @@
 package com.santanu.coursescheduling.model;
 
+import com.santanu.coursescheduling.enums.CommandOperator;
+
 import java.util.List;
 
-import com.santanu.coursescheduling.enums.CourseCommand;
-
 public class Command {
-    private final CourseCommand command;
-    private final List<String> params;
+    private final CommandOperator inputCommand;
+    private final List<String> commandParams;
 
-    public Command(CourseCommand command, List<String> params){
-        this.command = command;
-        this.params = params;
+    public Command(CommandOperator inputCommand, List<String> commandParams){
+        this.inputCommand = inputCommand;
+        this.commandParams = commandParams;
     }
 
-    public CourseCommand getCommand() {
-        return command;
+    public CommandOperator getInputCommand() {
+        return inputCommand;
     }
 
-    public List<String> getParams() {
-        return params;
+    public List<String> getCommandParams() {
+        return commandParams;
     }
+
 }

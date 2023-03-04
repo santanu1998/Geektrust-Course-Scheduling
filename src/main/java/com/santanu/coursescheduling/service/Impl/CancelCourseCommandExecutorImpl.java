@@ -1,28 +1,29 @@
 package com.santanu.coursescheduling.service.Impl;
 
+import com.santanu.coursescheduling.model.Command;
+import com.santanu.coursescheduling.model.Course;
+import com.santanu.coursescheduling.service.CommandExecutor;
+
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.santanu.coursescheduling.model.Command;
-import com.santanu.coursescheduling.model.Course;
-import com.santanu.coursescheduling.service.CourseCommandExecutor;
-import static com.santanu.coursescheduling.constants.CourseConstants.CANCEL_STATUS_ACCEPTED;
-import static com.santanu.coursescheduling.constants.CourseConstants.CANCEL_STATUS_REJECTED;
+import static com.santanu.coursescheduling.constants.Constants.CANCEL_ACCEPTED;
+import static com.santanu.coursescheduling.constants.Constants.CANCEL_REJECTED;
 
-public class CancelCourseCommandExecutorImpl implements CourseCommandExecutor {
+public class CancelCourseCommandExecutorImpl implements CommandExecutor {
     @Override
-    public void executeCourseCommand(TreeMap<String, Course> courses, Map<String, Course> registrationIdCourseMap, Command command) {
-        String regId = command.getParams().get(0);
+    public void executeCommand(TreeMap<String, Course> courses, Map<String, Course> registrationIdCourseMap, Command command) {
+        String regId = command.getCommandParams().get(0);
         if(isValidRegistrationID(regId,registrationIdCourseMap)){
             if(isCourseNotAllotted(regId,registrationIdCourseMap)){
-                System.out.println(regId + " " + CANCEL_STATUS_REJECTED);
+                System.out.println(regId+" "+CANCEL_REJECTED);
             }else{
                 //Remove the registration for the employee...
                 removeRegisteredEmployee(regId,registrationIdCourseMap);
-                System.out.println(regId+" "+ CANCEL_STATUS_ACCEPTED);
+                System.out.println(regId+" "+CANCEL_ACCEPTED);
             }
         }else{
-            System.out.println(regId+" "+ CANCEL_STATUS_REJECTED);
+            System.out.println(regId+" "+CANCEL_REJECTED);
         }
     }
 

@@ -1,12 +1,12 @@
 package com.santanu.coursescheduling;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import com.santanu.coursescheduling.concrete.CourseScheduler;
 import com.santanu.coursescheduling.exception.InvalidInputException;
 import com.santanu.coursescheduling.model.Command;
+import com.santanu.coursescheduling.concrete.LearningManagementSystem;
 import com.santanu.coursescheduling.service.FileProcesserService;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 
 public class CourseSchedulingApp {
@@ -15,7 +15,7 @@ public class CourseSchedulingApp {
             if (args.length != 1) {
                 throw new FileNotFoundException("Input file is not supplied");
             } else {
-                CourseScheduler lms = new CourseScheduler("Intuit");
+                LearningManagementSystem lms = new LearningManagementSystem("Intuit");
                 FileProcesserService fileProcesserService = new FileProcesserService(args[0]);
                 try {
                     try {

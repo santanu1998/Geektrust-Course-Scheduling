@@ -1,15 +1,14 @@
 package com.example.geektrust.service;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import com.santanu.coursescheduling.concrete.CommandExecutionFactory;
 import com.santanu.coursescheduling.exception.CourseFullException;
 import com.santanu.coursescheduling.exception.InvalidInputException;
 import com.santanu.coursescheduling.model.Command;
 import com.santanu.coursescheduling.model.Course;
+import com.santanu.coursescheduling.concrete.CommandExecutionFactory;
+import com.santanu.coursescheduling.service.CommandExecutor;
 import com.santanu.coursescheduling.service.CommandService;
-import com.santanu.coursescheduling.service.CourseCommandExecutor;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -22,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AddCourseCommandExecutorImplTest {
 
     Command command1;
-    CourseCommandExecutor executor;
+    CommandExecutor executor;
     private  TreeMap<String , Course> courses;
     private  Map<String,Course> registrationIdCourseMap;
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -38,13 +37,13 @@ public class AddCourseCommandExecutorImplTest {
 
     @Test
     public void testExecute(){
-        assertDoesNotThrow( ()->executor.executeCourseCommand(courses , registrationIdCourseMap , command1));
+        assertDoesNotThrow( ()->executor.executeCommand(courses , registrationIdCourseMap , command1));
     }
 
 
     @Test
     public void testSuccessMessage() throws InvalidInputException, CourseFullException {
-        executor.executeCourseCommand(courses , registrationIdCourseMap , command1);
+        executor.executeCommand(courses , registrationIdCourseMap , command1);
         assertEquals("OFFERING-JAVA-JAMES",outContent.toString().trim());
     }
 }

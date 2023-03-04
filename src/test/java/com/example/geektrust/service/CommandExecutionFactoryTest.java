@@ -1,14 +1,13 @@
 package com.example.geektrust.service;
 
+import com.santanu.coursescheduling.exception.InvalidInputException;
+import com.santanu.coursescheduling.model.Command;
+import com.santanu.coursescheduling.concrete.CommandExecutionFactory;
+import com.santanu.coursescheduling.service.CommandService;
+import com.santanu.coursescheduling.service.Impl.AddCourseCommandExecutorImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import com.santanu.coursescheduling.concrete.CommandExecutionFactory;
-import com.santanu.coursescheduling.exception.InvalidInputException;
-import com.santanu.coursescheduling.model.Command;
-import com.santanu.coursescheduling.service.CommandService;
-import com.santanu.coursescheduling.service.Impl.AddCourseCommandExecutor;
 
 public class CommandExecutionFactoryTest {
 
@@ -23,8 +22,8 @@ public class CommandExecutionFactoryTest {
 
     @Test
     public void getExecutorTest() {
-       Assertions.assertTrue(CommandExecutionFactory.getExecutor(command1) instanceof AddCourseCommandExecutor);
-       Assertions.assertFalse(CommandExecutionFactory.getExecutor(command2) instanceof AddCourseCommandExecutor);
+       Assertions.assertTrue(CommandExecutionFactory.getExecutor(command1) instanceof AddCourseCommandExecutorImpl);
+       Assertions.assertFalse(CommandExecutionFactory.getExecutor(command2) instanceof AddCourseCommandExecutorImpl);
     }
 
 

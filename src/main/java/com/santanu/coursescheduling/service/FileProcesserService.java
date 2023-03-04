@@ -1,9 +1,8 @@
 package com.santanu.coursescheduling.service;
 
-import java.io.*;
-
 import com.santanu.coursescheduling.exception.InvalidInputException;
 import com.santanu.coursescheduling.model.Command;
+import java.io.*;
 
 public class FileProcesserService {
     private final File file;

@@ -1,27 +1,28 @@
 package com.santanu.coursescheduling.service.Impl;
 
-import java.util.Map;
-import java.util.TreeMap;
-
 import com.santanu.coursescheduling.exception.CourseFullException;
 import com.santanu.coursescheduling.exception.InvalidInputException;
 import com.santanu.coursescheduling.model.Command;
 import com.santanu.coursescheduling.model.Course;
 import com.santanu.coursescheduling.model.Employee;
-import com.santanu.coursescheduling.service.CourseCommandExecutor;
-import static com.santanu.coursescheduling.constants.CourseConstants.STATUS_REJECTED;
-import static com.santanu.coursescheduling.constants.CourseConstants.STATUS_ACCEPTED;
+import com.santanu.coursescheduling.service.CommandExecutor;
 
-public class RegisterCourseCommandExecutorImpl implements CourseCommandExecutor {
+import java.util.Map;
+import java.util.TreeMap;
+
+import static com.santanu.coursescheduling.constants.Constants.ACCEPTED;
+import static com.santanu.coursescheduling.constants.Constants.REJECTED;
+
+public class RegisterCourseCommandExecutorImpl implements CommandExecutor {
 
     @Override
-    public void executeCourseCommand(TreeMap<String, Course> courses, Map<String, Course> registrationIdCourseMap, Command command) throws InvalidInputException, CourseFullException {
-        String courseID = command.getParams().get(1);
+    public void executeCommand(TreeMap<String, Course> courses, Map<String, Course> registrationIdCourseMap, Command command) throws InvalidInputException, CourseFullException {
+        String courseID = command.getCommandParams().get(1);
         Employee employee = ConstructEmployeeObject(command);
         if(courses.containsKey(courseID)){
             Course course = courses.get(courseID);
             if(!courses.get(courseID).isAllotted() || courses.get(courseID).isCancelled()){
-                if(course.getRegisteredEmployees().size()==course.getMinimumCapacity()){
+                if(course.getRegisteredEmployees().size()==course.getMaxCapacity()){
                     throw new CourseFullException("COURSE_FULL_ERROR");
                 }else{
                     //register the employee to course......
@@ -29,7 +30,7 @@ public class RegisterCourseCommandExecutorImpl implements CourseCommandExecutor 
                 }
             }else{
                 //In case of course is allotted already
-                System.out.println("REG-COURSE-"+employee.getName()+"-"+courses.get(courseID).getName()+" "+ STATUS_REJECTED);
+                System.out.println("REG-COURSE-"+employee.getName()+"-"+courses.get(courseID).getCourseName()+" "+REJECTED);
             }
         }else{
             //In case of course ID is not present in the course offering list.
@@ -41,10 +42,10 @@ public class RegisterCourseCommandExecutorImpl implements CourseCommandExecutor 
     private void registerEmployeeToCourse(Employee employee, Course course, Map<String, Course> registrationIdCourseMap) {
         String regID = course.addEmployee(employee);
         registrationIdCourseMap.put(regID , course);
-        System.out.println(regID+" "+ STATUS_ACCEPTED);
+        System.out.println(regID+" "+ACCEPTED);
     }
 
     private Employee ConstructEmployeeObject(Command command) throws InvalidInputException {
-        return new Employee(command.getParams().get(0));
+        return new Employee(command.getCommandParams().get(0));
     }
 }
